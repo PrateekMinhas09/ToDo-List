@@ -63,7 +63,14 @@ todoInput.value="";
         if(item.classList[0]==='trash-btn')
         {
             const todo = item.parentElement;//get parent element 
-            todo.remove();//removes item 
+
+            //animation
+            todo.classList.toggle(`fall`);
+
+
+            todo.addEventListener('transitionend',function(e){
+                todo.remove();
+            })
         
         }
 
@@ -72,5 +79,6 @@ todoInput.value="";
         {
             const todo = item.parentElement;
             todo.classList.toggle('completed');
+           
         }
     }
