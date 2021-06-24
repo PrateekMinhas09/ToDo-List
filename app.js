@@ -2,13 +2,14 @@
 const todoInput = document.querySelector('.todo-input');
 const todoButton = document.querySelector('.todo-button');
 const todoList = document.querySelector('.todo-list');
+const filterOption = document.querySelector('.filter-todo');
 
-console.log(todoButton);
-
+todoList.removeChild(todoList.childNodes[0]);
 //Adding Event Listeners to the elements grabbed
 
 todoButton.addEventListener('click',addTodo);
 todoList,addEventListener('click',deleteCheck);
+filterOption.addEventListener('click',filterTodos);
 
 
 
@@ -21,8 +22,7 @@ function addTodo(e)
         alert('please write a task! :)');
     }
     else{
-    console.log('voo');
-
+    
     //create todo DIV
     const todoDiv = document.createElement('div');
     todoDiv.classList.add('todo');
@@ -51,12 +51,15 @@ function addTodo(e)
 todoList.appendChild(todoDiv);
 todoInput.value="";
 
-}
+    }
 
 }
 
-    function deleteCheck(e)
-    {
+
+
+
+function deleteCheck(e)
+{
         const item = e.target;
         console.log(e.target);
         //delete item 
@@ -81,4 +84,47 @@ todoInput.value="";
             todo.classList.toggle('completed');
            
         }
-    }
+}
+
+function filterTodos(e)
+{
+    const todos = todoList.childNodes;
+   
+
+    todos.forEach(function(eachTodo){
+        switch(e.target.value)
+        {
+            case 'all':
+            {
+                eachTodo.style.display='flex';
+                break;
+            }
+            case 'completed':
+            {
+                if(eachTodo.classList.contains(`completed`))
+                {
+                    eachTodo.style.display='flex';
+                }
+                else {
+                    eachTodo.style.display ='none';
+                }
+                    break;
+            }
+            case 'pending':
+                { if(eachTodo.classList.contains(`completed`))
+                {
+                    eachTodo.style.display='none';
+                }
+                else {
+                    eachTodo.style.display ='flex';
+                }
+
+                    break;
+                }
+        }
+    });
+
+}
+
+
+
